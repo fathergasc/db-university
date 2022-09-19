@@ -39,3 +39,22 @@ laurea (286)
 8. Quanti sono gli insegnanti che non hanno un numero di telefono? (50)
 
     SELECT COUNT(*) AS "teachers_with_no_phone_number" FROM `teachers` WHERE `phone` IS NULL
+
+
+Queries con GROUP BY:
+
+1. Contare quanti iscritti ci sono stati ogni anno
+
+    SELECT COUNT(*) AS "enroled_students", YEAR(enrolment_date) AS "enrolment_year" FROM `students` GROUP BY YEAR(enrolment_date)
+
+2. Contare gli insegnanti che hanno l'ufficio nello stesso edificio
+
+    SELECT COUNT(*) AS "teachers", `office_address` FROM `teachers` GROUP BY(office_address)
+
+3. Calcolare la media dei voti di ogni appello d'esame
+
+    SELECT TRUNCATE(AVG(vote), 2) AS "average_grade", `exam_id` as "exam" FROM `exam_student` GROUP BY(exam_id)
+
+4. Contare quanti corsi di laurea ci sono per ogni dipartimento
+
+    SELECT COUNT(*) AS "number_of_degrees", `department_id` AS `department` FROM `degrees` GROUP BY(department_id)
