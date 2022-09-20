@@ -63,6 +63,7 @@ Queries con GROUP BY:
 
     SELECT COUNT(*) AS "number_of_degrees", `department_id` AS `department` FROM `degrees` GROUP BY(department_id)
 
+    SELECT `students`.`surname`, `students`.`name`, `exams`.`id` AS "exam_id", `courses`.`name` AS "exam_name", COUNT(exam_student.student_id) AS "tries" FROM `students` JOIN `exam_student` ON `students`.`id` = `exam_student`.`student_id` JOIN `exams` ON `exam_student`.`exam_id` = `exams`.`id` JOIN `courses` ON `exams`.`course_id` = `courses`.`id` GROUP BY `exam_student`.`exam_id`, `exam_student`.`student_id`, `exam_student`.`vote` ORDER BY `students`.`name`, `students`.`surname` ASC
 
 
 
@@ -98,3 +99,5 @@ relativo dipartimento, in ordine alfabetico per cognome e nome
 
 7. BONUS: Selezionare per ogni studente quanti tentativi d’esame ha sostenuto per
 superare ciascuno dei suoi esami
+
+    SELECT `students`.`name`, `students`.`surname`, `courses`.`name` AS "exam_name", COUNT(exam_student.vote) AS "tries" FROM `students` JOIN `exam_student` ON `students`.`id` = `exam_student`.`student_id` JOIN `exams` ON `exam_student`.`exam_id` = `exams`.`id` JOIN `courses` ON `exams`.`course_id` = `courses`.`id` GROUP BY `students`.`id`, `courses`.`id` ORDER BY `students`.`surname`, `students`.`name` ASC
