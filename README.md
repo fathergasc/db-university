@@ -100,4 +100,4 @@ relativo dipartimento, in ordine alfabetico per cognome e nome
 7. BONUS: Selezionare per ogni studente quanti tentativi d’esame ha sostenuto per
 superare ciascuno dei suoi esami
 
-    SELECT `students`.`name`, `students`.`surname`, `courses`.`name` AS "exam_name", COUNT(exam_student.vote) AS "tries" FROM `students` JOIN `exam_student` ON `students`.`id` = `exam_student`.`student_id` JOIN `exams` ON `exam_student`.`exam_id` = `exams`.`id` JOIN `courses` ON `exams`.`course_id` = `courses`.`id` GROUP BY `students`.`id`, `courses`.`id` ORDER BY `students`.`surname`, `students`.`name` ASC
+   SELECT `students`.`name`, `students`.`surname`, `courses`.`name` AS "exam_name", COUNT(exam_student.vote) AS "tries", MAX(`exam_student`.`vote`) AS "higher_grade" FROM `students` JOIN `exam_student` ON `students`.`id` = `exam_student`.`student_id` JOIN `exams` ON `exam_student`.`exam_id` = `exams`.`id` JOIN `courses` ON `exams`.`course_id` = `courses`.`id` GROUP BY `students`.`id`, `courses`.`id` HAVING `higher_grade` >= 18 ORDER BY `students`.`surname`, `students`.`name` ASC
